@@ -1,5 +1,8 @@
+<% include partials/header%>
+
 <h1>photographs page</h1>
 
+<a href="/photographs/new">Add New Place</a>
 <% photographs.forEach(function(photo){ %>
 <div>
     <h3><%= photo.name%></h3>
@@ -7,4 +10,4 @@
 </div>
 <% }) %>
 
-
+<% include partials/footer%>
