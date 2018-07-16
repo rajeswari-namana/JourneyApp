@@ -1,0 +1,10 @@
+<h1>photographs page</h1>
+
+<% photographs.forEach(function(photo){ %>
+<div>
+    <h3><%= photo.name%></h3>
+    <img src="<%=photo.image%>" alt="">
+</div>
+<% }) %>
+
+
