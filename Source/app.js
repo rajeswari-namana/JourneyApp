@@ -11,9 +11,9 @@ app.use(bodyparser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 
 var photographs=[
-    {name:"India Gate", image:"https://pixabay.com/get/ea30b3092af3063ed1584d05fb1d4e97e07ee3d21cac104496f1c67aa2ebb1b9_340.jpg"},
-    {name:"Taj Mahal", image:"https://pixabay.com/get/e835b20f20fd053ed1584d05fb1d4e97e07ee3d21cac104496f1c67aa2e4b4b8_340.jpg"},
-    {name:"Red Fort", image:"https://pixabay.com/get/eb37b40b2ff4053ed1584d05fb1d4e97e07ee3d21cac104496f1c67aa1edb6b9_340.jpg"}
+    {name:"India Gate", image:"https://farm8.staticflickr.com/7354/9713630068_16148d2577.jpg"},
+    {name:"Taj Mahal", image:"https://farm3.staticflickr.com/2284/2155546710_1f934f8a13.jpg"},
+    {name:"Red Fort", image:"https://farm4.staticflickr.com/3453/5736110274_efa015e59b.jpg"}
 ];
 
 app.get("/", function(req,res){
