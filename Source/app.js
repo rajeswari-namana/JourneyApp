@@ -2,38 +2,64 @@
  * Created by rajin on 7/16/2018.
  */
 
-var express=require('express');
-var app=express();
-var bodyparser=require("body-parser");
+var express=require('express'),
+    app=express(),
+    bodyparser=require("body-parser"),
+    mongoose=require("mongoose"),
+    mongodb=require("mongodb");
+
+mongoose.connect('mongodb://localhost:27017/Journey_DB', { useNewUrlParser: true });
 
 app.use(bodyparser.urlencoded({extended:true}));
 
 app.set("view engine", "ejs");
 
-var photographs=[
-    {name:"India Gate", image:"https://farm8.staticflickr.com/7354/9713630068_16148d2577.jpg"},
-    {name:"Taj Mahal", image:"https://farm3.staticflickr.com/2284/2155546710_1f934f8a13.jpg"},
-    {name:"Red Fort", image:"https://farm4.staticflickr.com/3453/5736110274_efa015e59b.jpg"}
-];
+// Schema Setup
+
+var placeSchema= new mongoose.Schema({
+   name:String,
+   image:String
+});
+
+var Photograph=mongoose.model("Place",placeSchema);
+
 
 app.get("/", function(req,res){
    res.render("landing");
 });
 
 app.get("/photographs", function(req,res){
+    //get all places from db
+    Photograph.find({},function (err,allPlaces) {
+        if(err){
+            console.log(err)
+        }
+        else {
+            res.render("photographs",{photographs:allPlaces});
+        }
+    })
 
-    res.render("photographs",{photographs:photographs});
 });
 
 app.post("/photographs",function (req,res) {
-   //get data from form and add to photographs array
-    var place=req.body.place;
-    var image=req.body.image;
-    var newplace={name:place, image:image};
-    photographs.push(newplace);
-    //redirect back to photographs
-    res.redirect("photographs")
+    //get data from form and add to photographs array
+    var place = req.body.place;
+    var image = req.body.image;
+    var newplace = {name: place, image: image};
+    // create a new place and save it to database
+    Photograph.create(newplace,function (err,newlyCreated) {
+        if(err){
+            console.log(err)
+        }
+        else{
+            //redirect back to photographs
+            res.redirect("photographs")
+        }
+    })
 });
+
+   
+
 
 app.get("/photographs/new",function(req,res){
         res.render("new.ejs")
